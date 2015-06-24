@@ -30,8 +30,8 @@ class MessagesController < ApplicationController
   	end
   	puts request.env["HTTP_ACCEPT"]
   	respond_to do |format|
-  		format.html {render :html => twiml.to_xml}
   		format.xml {render :xml => twiml.to_xml}
+  		format.html {render :html => twiml.to_xml}
   		format.json {render json: twiml.to_json}
   		format.twiml {render :xml => twiml.to_xml}
   	end
