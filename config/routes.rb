@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   get 'messages/create'
 
+  get 'messages/receive_message'
+  
   post 'messages/send_message'
 
   get '/messages', to: 'messages#create'

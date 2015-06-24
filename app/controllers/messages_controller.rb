@@ -10,22 +10,29 @@ class MessagesController < ApplicationController
   end
 
   def send_message
+  	params[:message][:from] = '+13235270659'
   	@message = Message.new(send_params(params[:message]))
   	begin
-			@message = @@client.account.messages.create(:body => @message[:body], :to => @message[:to], :from => '+13235270659')
+			@@client.account.messages.create(:body => @message[:body], :to => @message[:to], :from => @message[:from])
 		rescue Twilio::REST::RequestError => e
 			flash.now.alert = "Message could not be sent."
 			render "create"
 			return
 		end
-		@message.from = '+13235270659'
 		@message.save
 		flash.notice = "Message sent!"
 		redirect_to(:action => :create)
   end
 
+  def receive_message
+  	twiml = Twilio::TwiML::Response.new do |r|
+  		r.Message "Hey Monkey. Thanks for the message!"
+  	end
+  	render plain: twiml.text
+  end
+
   private
   def send_params(params)
-  	return params.permit(:to, :body)
+  	return params.permit(:to, :body, :from)
   end
 end
