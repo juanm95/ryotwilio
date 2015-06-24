@@ -28,7 +28,7 @@ class MessagesController < ApplicationController
   	twiml = Twilio::TwiML::Response.new do |r|
   		r.Message "Hey Monkey. Thanks for the message!"
   	end
-  	puts request.headers["Content-Type"]
+  	puts request.env
   	respond_to do |format|
   		format.html {render :html => twiml.to_xml}
   		format.xml {render :xml => twiml.to_xml}
