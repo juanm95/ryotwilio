@@ -33,6 +33,7 @@ class MessagesController < ApplicationController
   		format.html {render :html => twiml.to_xml}
   		format.xml {render :xml => twiml.to_xml}
   		format.json {render json: twiml.to_json}
+  		format.twiml {render :xml => twiml.to_xml}
   	end
   end
 
