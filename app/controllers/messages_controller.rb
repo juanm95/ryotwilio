@@ -28,9 +28,11 @@ class MessagesController < ApplicationController
   	twiml = Twilio::TwiML::Response.new do |r|
   		r.Message "Hey Monkey. Thanks for the message!"
   	end
+  	puts params
   	respond_to do |format|
-  		format.html {render html: twiml}
-  		format.xml {render :xml => twiml.text.to_xml}
+  		format.html {render :html => twiml.to_xml}
+  		format.xml {render :xml => twiml.to_xml}
+  		format.json {render json: twiml.to_json}
   	end
   end
 
