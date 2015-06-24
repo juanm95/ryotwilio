@@ -28,7 +28,10 @@ class MessagesController < ApplicationController
   	twiml = Twilio::TwiML::Response.new do |r|
   		r.Message "Hey Monkey. Thanks for the message!"
   	end
-  	render plain: 'guh'
+  	respond_to do |format|
+  		format.html {render html: twiml}
+  		format.xml {render xml: twiml}
+  	end
   end
 
   private
