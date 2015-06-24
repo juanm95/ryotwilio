@@ -30,7 +30,7 @@ class MessagesController < ApplicationController
   	end
   	respond_to do |format|
   		format.html {render html: twiml}
-  		format.xml {render xml: twiml.to_xml}
+  		format.xml {render :xml => twiml.text.to_xml}
   	end
   end
 
