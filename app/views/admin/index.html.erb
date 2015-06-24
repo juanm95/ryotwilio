@@ -1,23 +1,16 @@
 <table class="table">
 	<tr>
-		<th>Order</th>
-		<th>State</th>
-		<th>Date</th>
-		<th>Customer</th>
-		<th>Total</th>
+		<th>To</th>
+		<th>From</th>
+		<th>Message</th>
+		<th>Sent On</th>
 	</tr>
-	<tr>
-		<td><a href="#">#101</a></td>
-		<td>Complete</td>
-		<td>May 07, 2011 19:00</td>
-		<td><a href="#">gregbell</a></td>
-		<td>$1,029.00</td>
-	</tr>
+	<% @messages.each do |msg| %>
 		<tr>
-		<td><a href="#">#101</a></td>
-		<td>InComplete</td>
-		<td>May 07, 2011 19:00</td>
-		<td><a href="#">gregbell</a></td>
-		<td>$1,029.00</td>
-	</tr>
+			<td><%= msg.to %> </td>
+			<td><%= msg.from %> </td>
+			<td><%= msg.body %> </td>
+			<td><%= msg.created_at %> </td>
+		</tr>
+	<% end %>
 	</table>
