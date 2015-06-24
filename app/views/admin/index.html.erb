@@ -1,14 +1,12 @@
 <table class="table">
 	<tr>
 		<th>To</th>
-		<th>From</th>
 		<th>Message</th>
 		<th>Sent On</th>
 	</tr>
 	<% @messages.each do |msg| %>
 		<tr>
 			<td><%= msg.to %> </td>
-			<td><%= msg.from %> </td>
 			<td><%= msg.body %> </td>
 			<td><%= msg.created_at %> </td>
 		</tr>

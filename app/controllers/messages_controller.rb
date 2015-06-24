@@ -18,7 +18,7 @@ class MessagesController < ApplicationController
 			render "create"
 			return
 		end
-		@message[:from] = '+13235270659'
+		@message.from = '+13235270659'
 		@message.save
 		flash.notice = "Message sent!"
 		redirect_to(:action => :create)
