@@ -11,7 +11,7 @@ class MessagesController < ApplicationController
 
   def send_message
   	params[:message][:from] = '+13235270659'
-  	@message = Message.new(send_params(params[:message]))
+  	@message = Message.new(msg_params(params[:message]))
   	begin
 			@@client.account.messages.create(:body => @message[:body], :to => @message[:to], :from => @message[:from])
 		rescue Twilio::REST::RequestError => e
@@ -25,20 +25,20 @@ class MessagesController < ApplicationController
   end
 
   def receive_message
-  	twiml = Twilio::TwiML::Response.new do |r|
-  		r.Message "Hey Monkey. Thanks for the message!"
+  	message = Message.new(to: params[:To], from: params[:From], body: params[:Body])
+  	if message.save then
+  		responseMsg = "Response saved!"
+  	else
+  		responseMsg = "Failed to save response, try resending."
   	end
-  	puts request.env["HTTP_ACCEPT"]
-  	respond_to do |format|
-  		format.xml {render :xml => twiml.to_xml}
-  		format.html {render :html => twiml.to_xml}
-  		format.json {render json: twiml.to_json}
-  		format.twiml {render :xml => twiml.to_xml}
-  	end
+		twiml = Twilio::TwiML::Response.new do |r|
+  		r.Message responseMsg
+		end
+		render xml: twiml.text
   end
 
   private
-  def send_params(params)
+  def msg_params(params)
   	return params.permit(:to, :body, :from)
   end
 end
